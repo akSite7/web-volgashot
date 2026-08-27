@@ -13,7 +13,7 @@ class AdminController extends Controller
     public function index(): Response
     {
         return Inertia::render('admin/Dashboard', [
-            'products' => Product::latest()->get(),
+            'products' => Product::orderBy('id')->get(),
             'leads' => Lead::latest()->get(),
             'users' => User::oldest()->get(['id', 'login', 'approved_at', 'created_at']),
         ]);

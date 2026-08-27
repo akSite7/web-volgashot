@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', fn () => Inertia::render('Home', [
-    'products' => Product::latest()->get(),
+    'products' => Product::orderBy('id')->get(),
     'seo' => [
         'canonical' => route('home'),
         'description' => 'Производство и продажа свинцовой охотничьей дроби и картечи. Заказы от 2 кг, оптовые продажи обсуждаются отдельно.',
