@@ -5,7 +5,7 @@ import Footer from '@/components/Footer.vue'
 import Header from '@/components/Header.vue'
 
 type Product = { id: number; name: string; type: 'shot' | 'buckshot'; description: string | null; price_per_kg: string; photo_url: string | null }
-const props = defineProps<{ products: Product[]; seo: { canonical: string; description: string } }>()
+const props = defineProps<{ products: Product[]; seo: { title: string; canonical: string; description: string } }>()
 const formatPrice = (price: string) => Math.round(Number(price)).toLocaleString('ru-RU')
 const activeCategory = ref<'shot' | 'buckshot'>('shot')
 const activeProducts = computed(() => props.products.filter((product) => product.type === activeCategory.value))
@@ -71,19 +71,19 @@ function submitForm() {
 
 <template>
   <Head>
-    <title>Охотничья дробь и картечь от производителя</title>
+    <title>{{ seo.title }}</title>
     <meta name="description" :content="seo.description" />
     <link rel="canonical" :href="seo.canonical" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="VOLGASHOT" />
-    <meta property="og:title" content="Охотничья дробь и картечь от производителя — VOLGASHOT" />
+    <meta property="og:title" :content="seo.title" />
     <meta property="og:description" :content="seo.description" />
     <meta property="og:url" :content="seo.canonical" />
     <meta v-if="socialImage" property="og:image" :content="socialImage" />
     <meta v-if="socialImage" property="og:image:alt" content="Продукция VOLGASHOT" />
     <meta name="twitter:card" :content="socialImage ? 'summary_large_image' : 'summary'" />
-    <meta name="twitter:title" content="Охотничья дробь и картечь от производителя — VOLGASHOT" />
+    <meta name="twitter:title" :content="seo.title" />
     <meta name="twitter:description" :content="seo.description" />
     <meta v-if="socialImage" name="twitter:image" :content="socialImage" />
     <component :is="'script'" type="application/ld+json">{{ structuredData }}</component>
